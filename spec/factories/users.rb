@@ -9,11 +9,14 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  display_name    :string
+#  slug            :string
 #
 
 FactoryGirl.define do
   factory :user do
     email { FFaker::Internet.email }
+    password 'secret'
     last_login { DateTime.now }
+    display_name { FFaker::Internet.user_name  }
   end
 end

@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
   def warden
     env['warden']
   end
+
+  def ensure_logged_in
+    if !current_user
+      flash[:error] = "You need to be logged in"
+      redirect_to root_path
+    end
+  end
 end

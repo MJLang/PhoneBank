@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110000855) do
+ActiveRecord::Schema.define(version: 20160110233618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "divisions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.boolean  "admin",      default: false
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "memberships", ["team_id"], name: "index_memberships_on_team_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "outreach_reports", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,6 +45,17 @@ ActiveRecord::Schema.define(version: 20160110000855) do
 
   add_index "outreach_reports", ["user_id"], name: "index_outreach_reports_on_user_id", using: :btree
 
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "fundraising_url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "division_id"
+  end
+
+  add_index "teams", ["division_id"], name: "index_teams_on_division_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password_digest"
@@ -35,7 +63,11 @@ ActiveRecord::Schema.define(version: 20160110000855) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "display_name"
+    t.string   "slug"
   end
 
+  add_foreign_key "memberships", "teams"
+  add_foreign_key "memberships", "users"
   add_foreign_key "outreach_reports", "users"
+  add_foreign_key "teams", "divisions"
 end

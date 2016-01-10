@@ -9,6 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  display_name    :string
+#  slug            :string
 #
 
 class User < ActiveRecord::Base
@@ -20,8 +21,17 @@ class User < ActiveRecord::Base
   validates :display_name, uniqueness: true
 
   has_many :outreach_reports
+  has_one :membership
+  has_one :team, through: :membership
+
+  before_save :generate_slug
 
   def to_s
     display_name.nil? ? email : display_name
   end
+
+  def generate_slug
+    self.slug = display_name.to_param
+  end
+
 end

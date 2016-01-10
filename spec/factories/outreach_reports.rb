@@ -14,11 +14,10 @@
 
 FactoryGirl.define do
   factory :outreach_report do
-    user nil
-text_messages 1
-phone_calls 1
-comments "MyText"
-experience "MyText"
+    text_messages { rand(50) }
+    phone_calls rand(100)
+    comments { FFaker::Lorem.paragraph }
+    experience { FFaker::Lorem.paragraph }
   end
 
 end

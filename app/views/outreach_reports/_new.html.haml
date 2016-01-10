@@ -2,15 +2,15 @@
   %div.row
     %div.small-12.columns
       %h1 Report Card
-  = form_for [current_user, OutreachReport.new] do |f|
+  = form_for [current_user, OutreachReport.new], html: {'data-abide' => ''} do |f|
     %div.row
       %div.small-12.columns
         = f.label :text_messages, 'Texts sent'
-        = f.number_field :text_messages
+        = f.number_field :text_messages, {required: true, value: 0}
     %div.row
       %div.small-12.columns
         = f.label :phone_calls, 'Phone Calls made'
-        = f.number_field :phone_calls
+        = f.number_field :phone_calls, {required: true, value: 0}
     %div.row
       %div.small-12.columns
         = f.label :experience, "What was your experience?"
