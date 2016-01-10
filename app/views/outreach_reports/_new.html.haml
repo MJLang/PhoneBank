@@ -1,0 +1,25 @@
+%div#reportModal.reveal-modal.small{data: {reveal: ''}}
+  %div.row
+    %div.small-12.columns
+      %h1 Report Card
+  = form_for [current_user, OutreachReport.new] do |f|
+    %div.row
+      %div.small-12.columns
+        = f.label :text_messages, 'Texts sent'
+        = f.number_field :text_messages
+    %div.row
+      %div.small-12.columns
+        = f.label :phone_calls, 'Phone Calls made'
+        = f.number_field :phone_calls
+    %div.row
+      %div.small-12.columns
+        = f.label :experience, "What was your experience?"
+        = f.text_area :experience
+    %div.row
+      %div.small-12.columns
+        = f.label :comments, "Any comments?"
+        = f.text_area :comments
+
+    %div.row
+      .small-12.columns
+        = f.submit 'Report!', class: 'button success expand'

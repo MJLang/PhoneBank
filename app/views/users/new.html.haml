@@ -1,0 +1,14 @@
+.row
+  .small-12.medium-4.medium-centered.large-4.large-centered.columns
+    = form_for @user do |f|
+      .row
+        .small-12.columns
+          = f.label :email, 'Email'
+          = f.email_field :email, placeholder: 'Email'
+      .row
+        .small-12.columns
+          = f.label :password, 'Password'
+          = f.password_field :password, placeholder: 'Password'
+      .row
+        %div.small-12.medium-12.large-6.large-centered.medium-centered.column
+          = f.submit 'Register', class: 'button success expanded'

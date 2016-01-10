@@ -1,0 +1,22 @@
+%nav.top-bar
+  %ul.title-area
+    %li.name
+      %h1
+        = link_to 'Phonebank Duel', root_path
+
+  %section.top-bar-section
+    %ul.right
+      - if !current_user
+        %li
+          = link_to 'Register', register_path
+        %li
+          = link_to 'Login', login_path
+      - else
+        %li.cta
+          = link_to "Report In", '#', 'data-reveal-id' => 'reportModal'
+        %li.has-dropdown
+          = link_to current_user, '#'
+          %ul.dropdown
+            %li
+              = link_to 'Logout', logout_path, method: :delete
+        = render partial: 'outreach_reports/new'

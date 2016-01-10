@@ -1,0 +1,23 @@
+{
+  "name": "phonebankduel",
+  "authors": [
+    "Martin Lang <martin@mercator.io>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "~6.1.1"
+  }
+}
