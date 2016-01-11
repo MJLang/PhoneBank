@@ -12,10 +12,10 @@
 #
 
 class Team < ActiveRecord::Base
-  has_many :memberships
+  has_many :memberships, dependent: :delete_all
   has_many :members, through: :memberships, source: 'user'
 
-  belongs_to :team
+  belongs_to :division
 
   validates :name, uniqueness: true,
                    presence: true
@@ -28,12 +28,19 @@ class Team < ActiveRecord::Base
     memberships.create({user: user, admin: true})
   end
 
-  def is_member?(user)
+  def has_member?(user)
     members.include?(user)
   end
 
-  def is_admin?(user)
+  def has_admin?(user)
     memberships.includes(:user).where({admin: true}).collect(&:user).include?(user)
+  end
+
+  def drop_member(user)
+    return false if !self.has_member?(user)
+    membership = memberships.find_by({user: user})
+    membership.destroy
+    true
   end
 
 end

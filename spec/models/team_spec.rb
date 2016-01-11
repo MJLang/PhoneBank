@@ -23,29 +23,39 @@ RSpec.describe Team, type: :model do
     end
   end
 
-  describe "#is_member?" do
+  describe "#has_member?" do
     let(:user) { FactoryGirl.create(:user) }
 
     it "user should not be a member" do
-      expect(team.is_member?(user)).to be_falsey
+      expect(team.has_member?(user)).to be_falsey
     end
 
     it 'user should be a member' do
       team.members << user
-      expect(team.is_member?(user)).to be_truthy
+      expect(team.has_member?(user)).to be_truthy
     end
   end
 
-  describe '#is_admin?' do
+  describe '#has_admin?' do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'user should not be a an admin' do
-      expect(team.is_admin?(user)).to be_falsey
+      expect(team.has_admin?(user)).to be_falsey
     end
 
     it 'user should be an admin' do
       membership = Membership.create({user: user, team: team, admin: true})
-      expect(team.is_admin?(user)).to be_truthy
+      expect(team.has_admin?(user)).to be_truthy
+    end
+  end
+
+  describe '#drop_user' do
+    let(:user) { FactoryGirl.create(:user) }
+    it 'should be able to remove the user' do
+      team.members << user
+
+      team.drop_member(user)
+      expect(team.members.count).to eq(0)
     end
   end
 end

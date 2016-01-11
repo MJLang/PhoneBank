@@ -1,0 +1,23 @@
+%div.row
+  %div.small-12.medium-6.columns
+    = f.label :name, "Team Name"
+    = f.text_field :name, {placeholder: 'Team Name', required: ''}
+%div.row
+  %div.small-12.medium-6.columns
+    = f.label :description, "About your team"
+    = f.text_area :description
+%div.row
+  %div.small-12.medium-6.columns
+    = f.label :fundraising_url, "Fundraisinng URL"
+    = f.text_field :fundraising_url, placeholder: 'Fundraising Url'
+
+- if form_type == :create
+  %div.row
+    %div.small-12.medium-6.columns
+      = f.label :division_id, 'Which Division does your Team compete in?'
+      = select :team, :division_id, Division.all.collect { |d| [d.name, d.id] }, required: ''
+- else
+  %div.row
+    %div.small-12.medium-6.columns
+      = f.label :division_id, 'You are competing in Division: '
+      = f.text_field :division_id, {value: f.object.division.name, disabled: true}

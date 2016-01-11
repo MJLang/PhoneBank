@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates :display_name, uniqueness: true
 
   has_many :outreach_reports
-  has_one :membership
+  has_one :membership, dependent: :destroy
   has_one :team, through: :membership
 
   before_save :generate_slug
@@ -32,6 +32,15 @@ class User < ActiveRecord::Base
 
   def generate_slug
     self.slug = display_name.to_param
+  end
+
+  def is_member?(team)
+    self.team == team
+  end
+
+  def is_admin?(team)
+    return false if self.team.nil?
+    self.membership.admin == true
   end
 
 end

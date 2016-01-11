@@ -1,0 +1,11 @@
+%div.row
+  %h1.small-12.medium-7.large-9.columns
+    = @team.name
+  %div.medium-5.large-3.columns
+    %div.hide-for-small
+      - if current_user && current_user.is_member?(@team)
+        = link_to team_membership_path(@team, current_user.membership), method: :delete do
+          %button.button.alert Leave Team
+      - else
+        = link_to team_memberships_path(@team), method: :post do
+          %button.button.success Join Team

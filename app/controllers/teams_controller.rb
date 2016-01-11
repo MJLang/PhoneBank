@@ -12,33 +12,16 @@
 #
 
 class TeamsController < ApplicationController
-  def new
-    @team = Team.new
-  end
+  before_action :find_team, only: [:show]
 
-  def create
-    team = Team.new(team_params)
-    if team.save
-      flash[:notice] = "Successfully created Team #{team.name}"
-      redirect_to team_path(team)
-    else
-      flash.now[:error] = 'Could not create Team!'
-      render :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def delete
-  end
 
   private
 
   def team_params
     params.require(:team).permit(:name, :description, :fundraising_url)
+  end
+
+  def find_team
+    @team = Team.find(params[:id])
   end
 end

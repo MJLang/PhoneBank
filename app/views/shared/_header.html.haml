@@ -1,9 +1,11 @@
-%nav.top-bar
+%nav.top-bar{data: {topbar: ''}, role: 'navigation'}
   %ul.title-area
     %li.name
       %h1
         = link_to 'Phonebank Duel', root_path
-
+    %li.toggle-topbar.menu-icon
+      = link_to '#' do
+        %span Menu
   %section.top-bar-section
     %ul.right
       - if !current_user
@@ -15,7 +17,7 @@
         %li.cta
           = link_to "Report In", '#', 'data-reveal-id' => 'reportModal'
         %li.has-dropdown
-          = link_to current_user, '#'
+          = link_to current_user, internal_root_path
           %ul.dropdown
             %li
               = link_to 'Logout', logout_path, method: :delete

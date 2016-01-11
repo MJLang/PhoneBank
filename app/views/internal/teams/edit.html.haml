@@ -1,0 +1,7 @@
+.row
+  .div.small-12.columns
+    = form_for [@team], html: {'data-abide': ''} do |f|
+      = render partial: 'form', locals: {:f => f, form_type: :edit}
+      %div.row
+        %div.small-12.columns
+          = f.submit 'Update Team', class: 'button success expanded'
