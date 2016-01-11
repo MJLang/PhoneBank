@@ -1,0 +1,7 @@
+%div.row
+  %h1.small-9.columns
+    = @user
+%div.row
+  %div.small-12.columns
+    - @user.outreach_reports.each do |report|
+      = render partial: 'outreach_reports/outreach_report', object: report
