@@ -1,0 +1,12 @@
+.report-card {
+  h2 {
+    font-size: rem-calc(21);
+  }
+  .date {
+    font-size: rem-calc(11);
+    color: #888;
+  }
+  .experience {
+    display: inline-block;
+  }
+}

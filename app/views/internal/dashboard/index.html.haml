@@ -1,1 +1,4 @@
 %h1 Logged in
+
+- @reports.each do |report|
+  = render partial: 'outreach_reports/outreach_report', object: report

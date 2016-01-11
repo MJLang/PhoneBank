@@ -41,6 +41,5 @@
   },
   "_source": "git://github.com/Mango/slideout.git",
   "_target": "~0.1.11",
-  "_originalSource": "slideout.js",
-  "_direct": true
+  "_originalSource": "slideout.js"
 }

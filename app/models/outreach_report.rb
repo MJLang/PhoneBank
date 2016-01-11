@@ -10,8 +10,14 @@
 #  experience    :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  report_number :integer
 #
 
 class OutreachReport < ActiveRecord::Base
   belongs_to :user
+  before_create :add_counter
+
+  def add_counter
+    self.report_number = self.user.outreach_reports.count + 1
+  end
 end

@@ -10,6 +10,7 @@
 #  experience    :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  report_number :integer
 #
 
 require 'rails_helper'

@@ -1,9 +1,11 @@
-%nav.top-bar{data: {topbar: ''}, role: 'navigation'}
+%nav.top-bar.hide-for-small{data: {topbar: ''}, role: 'navigation'}
   %ul.title-area
-    %li.offcanvas.hide-for-medium-up
+
     %li.name
       %h1
         = link_to 'Phonebank Duel', root_path
+        = link_to '#' do
+          = fa_icon 'bars'
     %li.toggle-topbar.menu-icon
       = link_to '#' do
         %span Menu
@@ -18,8 +20,16 @@
         %li.cta
           = link_to "Report In", '#', 'data-reveal-id' => 'reportModal'
         %li.has-dropdown
-          = link_to current_user, internal_root_path
+          = link_to current_user, '#'
           %ul.dropdown
+            %li
+              = link_to 'Profile', internal_root_path
             %li
               = link_to 'Logout', logout_path, method: :delete
         = render partial: 'outreach_reports/new'
+%nav.tab-bar.show-for-small
+  %h1
+    = link_to '#', id: 'offcanvasButton' do
+      %span
+        = fa_icon 'bars'
+    = link_to 'Phonebank Duel', root_path

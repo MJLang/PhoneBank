@@ -1,0 +1,25 @@
+%div.report-card
+  %div.small-12.medium-9.large-9.columns.end.panel
+    %div.row
+      %div.small-9.medium-7.columns
+        %h2.bold
+          = "Report #{outreach_report.report_number}"
+      %div.small-3.medium-3.end.columns.right
+        %span.date
+          = "#{outreach_report.created_at.strftime('%m/%d/%Y, %I:%M%p')}"
+    %div.row
+      %div.small-10.columns.end
+        %span.label.info
+          Calls made:
+        %span
+          = outreach_report.phone_calls
+        %br
+        %span.label.info
+          Text messages sent:
+        %span
+          = outreach_report.text_messages
+      %div.small-12.columns
+        %span.label.info
+          Experience:
+        %p.experience
+          = outreach_report.experience
