@@ -14,6 +14,13 @@
 class TeamsController < ApplicationController
   before_action :find_team, only: [:show]
 
+  def index
+    @teams = Team.page(params[:page]).per(10)
+  end
+
+  def show
+  end
+
 
   private
 

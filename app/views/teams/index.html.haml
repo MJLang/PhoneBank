@@ -1,0 +1,7 @@
+%div.row
+  .small-12.columns
+    %ul.no-bullet
+      - @teams.each do |team|
+        %li
+          = render partial: 'teams/team', object: team
+= paginate @teams

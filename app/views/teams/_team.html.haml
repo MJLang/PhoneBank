@@ -1,0 +1,7 @@
+%div.row
+  %div.small-12.medium-6.columns.panel.medium-centered
+    = link_to team_path(team) do
+      %h3
+        = "#{team.name} (#{team.members.count} Members)"
+    %p
+      = team.description

@@ -3,7 +3,7 @@
     Team
   - if current_user.team.nil?
     %li
-      = link_to 'Join a Team!', '#'
+      = link_to 'Join a Team!', teams_path
     %li
       = link_to 'Create a Team', new_team_path
   - else

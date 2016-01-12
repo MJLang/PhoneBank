@@ -27,8 +27,9 @@ gem 'haml-rails'
 gem 'foundation-rails'
 gem "font-awesome-rails"
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.10'
 gem 'warden'
+gem 'kaminari'
 
 gem 'jquery-turbolinks'
 
@@ -44,6 +45,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'ffaker'
+
+  # Needed for Windows :()
+  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 end
 
 group :test do
@@ -61,4 +65,5 @@ group :development do
   gem 'better_errors'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'guard-livereload'
 end

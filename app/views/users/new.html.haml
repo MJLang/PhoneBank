@@ -1,14 +1,36 @@
-.row
-  .small-12.medium-4.medium-centered.large-4.large-centered.columns
-    = form_for @user do |f|
-      .row
-        .small-12.columns
-          = f.label :email, 'Email'
-          = f.email_field :email, placeholder: 'Email'
-      .row
-        .small-12.columns
-          = f.label :password, 'Password'
-          = f.password_field :password, placeholder: 'Password'
-      .row
-        %div.small-12.medium-12.large-6.large-centered.medium-centered.column
-          = f.submit 'Register', class: 'button success expanded'
+.row.signup-panel
+  .small-12.medium-8.medium-centered.large-6.large-centered.columns.end
+    .row
+      .small-12.columns.end
+        %h1
+          Sign up for Phonebank Duel!
+    .row
+      .small-12.columns.panel
+        .row
+          .small-12.medium-6.columns.right
+            %h2
+              Call Voters and talk with them about Bernie!
+            %p
+              You can help out the Bernie 2016 Campaign from the comfort of your home, by simply
+              engaging with Voters through the phone.
+            %h2
+              Score the most points for your team
+            %p
+              Representing a callteam? Let the world know of your effort!
+          .small-12.medium-6.columns
+            = form_for @user, html: {'data-abide': ''} do |f|
+              .row
+                .small-12.columns
+                  = f.label :email, 'Email'
+                  = f.email_field :email, {placeholder: 'Email', required: ''}
+              .row
+                .small-12.columns
+                  = f.label :password, 'Password'
+                  = f.password_field :password, {placeholder: 'Password', required: ''}
+              .row
+                .small-12.columns
+                  = label_tag :referral_code, 'Referral Code'
+                  = text_field_tag :referral_code, ''
+              .row
+                %div.small-12.medium-12.large-6.large-centered.medium-centered.column
+                  = f.submit 'Register', class: 'button success expanded radius'
