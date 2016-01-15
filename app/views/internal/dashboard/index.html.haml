@@ -1,4 +1,9 @@
 %h1 Logged in
-
-- @reports.each do |report|
-  = render partial: 'outreach_reports/outreach_report', object: report
+%div.row
+  %ul.reports.no-bullet.small-12.columns
+    - @reports.each do |report|
+      %li
+        = render partial: 'outreach_reports/outreach_report', object: report
+%div.row
+  .small-4.columns.small-centered
+    = paginate @reports

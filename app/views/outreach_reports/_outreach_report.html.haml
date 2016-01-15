@@ -18,8 +18,9 @@
           Text messages sent:
         %span
           = outreach_report.text_messages
-      %div.small-12.columns
-        %span.label.info
-          Experience:
-        %p.experience
-          = outreach_report.experience
+      - unless outreach_report.experience.nil? || outreach_report.experience.empty?
+        %div.small-12.columns
+          %span.label.info
+            Experience:
+          %p.experience
+            = outreach_report.experience

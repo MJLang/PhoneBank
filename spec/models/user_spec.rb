@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #  display_name    :string
 #  slug            :string
+#  state           :string
 #
 
 require 'rails_helper'

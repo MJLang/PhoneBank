@@ -17,6 +17,8 @@ class OutreachReport < ActiveRecord::Base
   belongs_to :user
   before_create :add_counter
 
+  scope :this_week, -> { where('created_at > ?', DateTime.now.utc.beginning_of_week )}
+
   def add_counter
     self.report_number = self.user.outreach_reports.count + 1
   end

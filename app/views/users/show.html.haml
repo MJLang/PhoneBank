@@ -2,6 +2,11 @@
   %h1.small-9.columns
     = @user
 %div.row
-  %div.small-12.columns
-    - @user.outreach_reports.each do |report|
+  %div.small-12.columns.medium-3.columns
+
+  %div.small-12.columns.medium-9.columns
+    - @reports.each do |report|
       = render partial: 'outreach_reports/outreach_report', object: report
+%div.row
+  .small-4.columns.small-centered
+    = paginate @reports

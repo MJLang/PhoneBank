@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #  display_name    :string
 #  slug            :string
+#  state           :string
 #
 
 class User < ActiveRecord::Base
@@ -18,7 +19,8 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true,
                     presence: true
 
-  validates :display_name, uniqueness: true
+  validates :display_name, uniqueness: true,
+                           presence: true
 
   has_many :outreach_reports
   has_one :membership, dependent: :destroy

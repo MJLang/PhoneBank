@@ -18,15 +18,27 @@
             %p
               Representing a callteam? Let the world know of your effort!
           .small-12.medium-6.columns
-            = form_for @user, html: {'data-abide': ''} do |f|
+            = form_for @user, html: {'data-abide': '', 'data-invalid': ''} do |f|
+              .row
+                .small-12.columns
+                  = f.label :display_name, 'Display Name'
+                  = f.text_field :display_name, {placeholder: 'Display Name', required: ''}
+                  %small.error{pattern: 'required'} Display Name is required
+                  - if @user.errors && @user.errors.messages[:display_name]
+                    %small.error Display Name is already taken
+
               .row
                 .small-12.columns
                   = f.label :email, 'Email'
                   = f.email_field :email, {placeholder: 'Email', required: ''}
+                  %small.error{pattern: 'required'} Email is required
+                  - if @user.errors && @user.errors.messages[:email]
+                    %small.error Email is already taken
               .row
                 .small-12.columns
                   = f.label :password, 'Password'
                   = f.password_field :password, {placeholder: 'Password', required: ''}
+                  %small.error Password is required
               .row
                 .small-12.columns
                   = label_tag :referral_code, 'Referral Code'

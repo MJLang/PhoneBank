@@ -18,8 +18,10 @@ class OutreachReportsController < ApplicationController
     user = User.find(params[:user_id])
     if user
       report = user.outreach_reports.new(report_params)
-      report.save
-      redirect_to root_path, notice: 'Report created, thank you!'
+      if report.save
+        redirect_to internal_root_path, notice: 'Report created, thank you!'
+      else
+      end
     else
       redirect_to root_path, error: 'Invalid User'
     end
