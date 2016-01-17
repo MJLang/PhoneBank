@@ -11,6 +11,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  report_number :integer
+#  team_id       :integer
 #
 
 class OutreachReportsController < ApplicationController
@@ -18,6 +19,9 @@ class OutreachReportsController < ApplicationController
     user = User.find(params[:user_id])
     if user
       report = user.outreach_reports.new(report_params)
+      if user.team
+        report.team = user.team
+      end
       if report.save
         redirect_to internal_root_path, notice: 'Report created, thank you!'
       else

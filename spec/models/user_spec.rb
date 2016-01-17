@@ -24,10 +24,10 @@ RSpec.describe User, type: :model do
   end
 
   describe '#is_admin?' do
-    let(:user) { FactoryGirl.create(:user_with_team_admin) }
+    let(:admin_user) { FactoryGirl.create(:user_with_team_admin) }
 
     it 'should return if user is admin' do
-      expect(user.is_admin?(user.team)).to be_truthy
+      expect(admin_user.is_admin?(admin_user.team)).to be_truthy
     end
   end
 end

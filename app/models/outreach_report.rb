@@ -11,11 +11,13 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  report_number :integer
+#  team_id       :integer
 #
 
 class OutreachReport < ActiveRecord::Base
   paginates_per 10
   belongs_to :user
+  belongs_to :team
   before_create :add_counter
 
   scope :this_week, -> { where('created_at > ?', DateTime.now.utc.beginning_of_week )}

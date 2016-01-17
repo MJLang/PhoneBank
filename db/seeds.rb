@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Divisions
+
+['Reddit', 'Collegiate'].each do |division|
+  exisiting_division = Division.find_by(name: division)
+  if exisiting_division.nil?
+    Division.create({name: division})
+  end
+end

@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     factory :user_with_team_admin  do
       after(:create) do |user, evaluator|
-        create(:membership, user: user, admin: true, team: evaluator.team)
+        create(:membership, user: user, admin: true, team: create(:team))
       end
     end
   end

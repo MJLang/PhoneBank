@@ -14,11 +14,13 @@
 class Team < ActiveRecord::Base
   has_many :memberships, dependent: :delete_all
   has_many :members, through: :memberships, source: 'user'
-
+  has_many :outreach_reports
   belongs_to :division
 
   validates :name, uniqueness: true,
                    presence: true
+
+  scope :ranked, -> {  }
 
   def add_member(user)
     members << user
