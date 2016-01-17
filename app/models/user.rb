@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
                             .sort { |a, b| b.weekly_score <=> a.weekly_score }
                            }
 
+                           
   def to_s
     display_name.nil? ? email : display_name
   end
@@ -65,5 +66,7 @@ class User < ActiveRecord::Base
   def weekly_score
     self.outreach_reports.this_week.to_a.sum(&:score)
   end
+
+
 
 end

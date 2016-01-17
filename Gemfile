@@ -31,6 +31,9 @@ gem 'bcrypt', '~> 3.1.10'
 gem 'warden'
 gem 'kaminari'
 
+gem 'sidekiq'
+gem 'redis'
+
 gem 'jquery-turbolinks'
 
 # Use Unicorn as the app server

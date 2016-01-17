@@ -66,4 +66,8 @@ class Team < ActiveRecord::Base
     true
   end
 
+  def serialize
+    {id: id, name: name, total_score: self.total_score, weekly_score: weekly_score}.to_json
+  end
+
 end
