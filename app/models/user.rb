@@ -29,10 +29,17 @@ class User < ActiveRecord::Base
   before_save :generate_slug
 
   scope :ranked, -> {
-                      joins(:outreach_reports)
-                      .group('users.id')
-                      .order('sum(outreach_reports.phone_calls) + sum(outreach_reports.text_messages) DESC')
+                      includes(:outreach_reports => :report_type)
+                      .sort { |a, b| b.total_score <=> a.total_score }
+                      # TODO: This in SQL
+                      # .order('((sum(outreach_reports.phone_calls) * outreach_reports.report_types.phone_call_weight) +
+                      #         (sum(outreach_reports.text_messages) * outreach_reports.report_types.text_message_weight)) DESC')
                     }
+
+  scope :weekly_ranked, -> {
+                            includes(:outreach_reports => :report_type)
+                            .sort { |a, b| b.weekly_score <=> a.weekly_score }
+                           }
 
   def to_s
     display_name.nil? ? email : display_name
@@ -49,6 +56,14 @@ class User < ActiveRecord::Base
   def is_admin?(team)
     return false if self.team.nil?
     self.membership.admin == true
+  end
+
+  def total_score
+    outreach_reports.to_a.sum(&:score)
+  end
+
+  def weekly_score
+    self.outreach_reports.this_week.to_a.sum(&:score)
   end
 
 end

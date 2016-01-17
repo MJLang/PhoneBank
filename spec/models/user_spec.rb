@@ -30,4 +30,12 @@ RSpec.describe User, type: :model do
       expect(admin_user.is_admin?(admin_user.team)).to be_truthy
     end
   end
+
+  describe 'scope: ranked' do
+    it 'should be able to rank a user' do
+      users = FactoryGirl.create_list(:user, 10, :with_reports, reports_count: 20)
+      users_ranked = User.ranked.to_a
+      expect(users_ranked[0].total_score > users_ranked[1].total_score ).to be_truthy
+    end
+  end
 end

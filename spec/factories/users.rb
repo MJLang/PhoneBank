@@ -25,5 +25,15 @@ FactoryGirl.define do
         create(:membership, user: user, admin: true, team: create(:team))
       end
     end
+
+    trait :with_reports do
+      transient do
+        reports_count 0
+      end
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create_list(:outreach_report, evaluator.reports_count, user: user)
+      end
+    end
   end
 end
