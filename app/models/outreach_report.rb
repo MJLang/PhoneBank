@@ -14,6 +14,7 @@
 #
 
 class OutreachReport < ActiveRecord::Base
+  paginates_per 10
   belongs_to :user
   before_create :add_counter
 

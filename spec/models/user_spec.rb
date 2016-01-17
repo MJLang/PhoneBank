@@ -22,4 +22,12 @@ RSpec.describe User, type: :model do
       expect(user.slug).to eq(user.display_name.to_param)
     end
   end
+
+  describe '#is_admin?' do
+    let(:user) { FactoryGirl.create(:user_with_team_admin) }
+
+    it 'should return if user is admin' do
+      expect(user.is_admin?(user.team)).to be_truthy
+    end
+  end
 end

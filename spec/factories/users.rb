@@ -19,5 +19,11 @@ FactoryGirl.define do
     password 'secret'
     last_login { DateTime.now }
     display_name { FFaker::Internet.user_name  }
+
+    factory :user_with_team_admin  do
+      after(:create) do |user, evaluator|
+        create(:membership, user: user, admin: true, team: evaluator.team)
+      end
+    end
   end
 end
