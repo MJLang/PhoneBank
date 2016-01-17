@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117021005) do
+ActiveRecord::Schema.define(version: 20160117031003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,14 +39,24 @@ ActiveRecord::Schema.define(version: 20160117021005) do
     t.integer  "phone_calls"
     t.text     "comments"
     t.text     "experience"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "report_number"
     t.integer  "team_id"
+    t.integer  "report_type_id"
   end
 
+  add_index "outreach_reports", ["report_type_id"], name: "index_outreach_reports_on_report_type_id", using: :btree
   add_index "outreach_reports", ["team_id"], name: "index_outreach_reports_on_team_id", using: :btree
   add_index "outreach_reports", ["user_id"], name: "index_outreach_reports_on_user_id", using: :btree
+
+  create_table "report_types", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "phone_call_weight"
+    t.decimal  "text_message_weight"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -72,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160117021005) do
 
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
+  add_foreign_key "outreach_reports", "report_types"
   add_foreign_key "outreach_reports", "teams"
   add_foreign_key "outreach_reports", "users"
   add_foreign_key "teams", "divisions"

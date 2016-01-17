@@ -14,3 +14,13 @@
     Division.create({name: division})
   end
 end
+
+# Report Types
+[{name: 'VoterID', phone_call_weight: 1, text_message_weight: 0.3},
+ {name: 'GroundControl', phone_call_weight: 4, text_message_weight: 3}
+].each do |report_type|
+  existing_report = ReportType.find_by(name: report_type[:name])
+  if existing_report.nil?
+    ReportType.create(report_type)
+  end
+end

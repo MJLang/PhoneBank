@@ -2,16 +2,17 @@
 #
 # Table name: outreach_reports
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  text_messages :integer
-#  phone_calls   :integer
-#  comments      :text
-#  experience    :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  report_number :integer
-#  team_id       :integer
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  text_messages  :integer
+#  phone_calls    :integer
+#  comments       :text
+#  experience     :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  report_number  :integer
+#  team_id        :integer
+#  report_type_id :integer
 #
 
 class OutreachReportsController < ApplicationController
@@ -25,9 +26,10 @@ class OutreachReportsController < ApplicationController
       if report.save
         redirect_to internal_root_path, notice: 'Report created, thank you!'
       else
+        redirect_to internal_root_path, error: 'Something went wrong!'
       end
     else
-      redirect_to root_path, error: 'Invalid User'
+      redirect_to internal_root_path, error: 'Invalid User'
     end
   end
 
@@ -35,6 +37,6 @@ class OutreachReportsController < ApplicationController
 
 
   def report_params
-    params.require(:outreach_report).permit(:phone_calls, :text_messages, :experience, :comments)
+    params.require(:outreach_report).permit(:phone_calls, :text_messages, :experience, :comments, :report_type_id)
   end
 end

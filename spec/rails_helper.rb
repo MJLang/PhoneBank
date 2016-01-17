@@ -38,6 +38,10 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
+  config.before(:all) do
+    Rails.application.load_seed
+  end
+
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

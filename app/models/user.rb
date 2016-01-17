@@ -28,6 +28,12 @@ class User < ActiveRecord::Base
 
   before_save :generate_slug
 
+  scope :ranked, -> {
+                      joins(:outreach_reports)
+                      .group('users.id')
+                      .order('sum(outreach_reports.phone_calls) + sum(outreach_reports.text_messages) DESC')
+                    }
+
   def to_s
     display_name.nil? ? email : display_name
   end

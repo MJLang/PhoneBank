@@ -19,7 +19,7 @@ RSpec.describe Team, type: :model do
     it 'should add a user as a member' do
       user = FactoryGirl.create(:user)
       team.add_member(user)
-      expect(team.members.count).to eq(1)
+      expect(team.members).to have(1).items
     end
   end
 
@@ -55,7 +55,30 @@ RSpec.describe Team, type: :model do
       team.members << user
 
       team.drop_member(user)
-      expect(team.members.count).to eq(0)
+      expect(team.members).to have(0).items
+    end
+  end
+
+  describe 'scope: ranked' do
+    let(:team_with_report) { FactoryGirl.create(:team, :with_reports, reports_count: 5) }
+
+    it 'has many reports' do
+      expect(team_with_report.outreach_reports).to have(5).items
+    end
+
+    it 'ranks teams by how many phonecalls they made' do
+      teams = FactoryGirl.create_list(:team, 10, :with_reports, reports_count: 20)
+      teams_ranked = Team.ranked.to_a
+      expect(teams_ranked[0].total_score > teams_ranked[1].total_score ).to be_truthy
+    end
+  end
+
+  describe 'scope: divisional' do
+    it 'filters by division' do
+      division_team1 = FactoryGirl.create(:team, :with_division, division_id: 1)
+      division_team2 = FactoryGirl.create(:team, :with_division, division_id: 2)
+
+      expect(Team.divisional(1)).to have(1).items
     end
   end
 end

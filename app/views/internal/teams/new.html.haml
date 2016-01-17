@@ -1,4 +1,7 @@
 .row
+  %div.small-12.columns
+    %h1 Create your team!
+.row
   .div.small-12.columns
     = form_for [@team], html: {'data-abide': ''} do |f|
       = render partial: 'form', locals: {:f => f, form_type: :create}

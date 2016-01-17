@@ -5,6 +5,11 @@
   = form_for [current_user, OutreachReport.new], html: {'data-abide' => ''} do |f|
     %div.row
       %div.small-12.columns
+        = f.label :report_type_id, 'What type of report is this?'
+        = select :outreach_report, :report_type_id, ReportType.all.collect { |rt| [rt.name, rt.id] }, required: ''
+
+    %div.row
+      %div.small-12.columns
         = f.label :text_messages, 'Texts sent'
         = f.number_field :text_messages, {required: true, value: 0}
     %div.row
