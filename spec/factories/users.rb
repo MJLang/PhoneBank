@@ -18,21 +18,30 @@ FactoryGirl.define do
     email { FFaker::Internet.email }
     password 'secret'
     last_login { DateTime.now }
-    display_name { FFaker::Internet.user_name  }
+    sequence(:display_name) { |n| "#{FFaker::Internet.user_name}-#{n}"  }
 
     factory :user_with_team_admin  do
-      after(:create) do |user, evaluator|
-        create(:membership, user: user, admin: true, team: create(:team))
+      transient do
+        division_id nil
       end
+
+      after(:create) do |user, evaluator|
+        team = create(:team, division_id: evaluator.division_id)
+        create(:membership, user: user, admin: true, team: team)
+      end
+    end
+
+    trait :with_membership do
+      association :team
     end
 
     trait :with_reports do
       transient do
-        reports_count 0
+        reports_count rand(20)
       end
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create_list(:outreach_report, evaluator.reports_count, user: user)
+        FactoryGirl.create_list(:outreach_report, evaluator.reports_count, user: user, team: user.team)
       end
     end
   end

@@ -24,15 +24,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails'
-gem 'foundation-rails'
+gem 'foundation-rails', '~> 6.1.*'
 gem "font-awesome-rails"
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.10'
-gem 'warden'
-gem 'kaminari'
+gem 'warden', '~> 1.2.4'
+gem 'kaminari', '~> 0.16.3'
 
-gem 'sidekiq'
-gem 'redis'
+gem 'sidekiq', '~> 4.0.2'
+gem 'redis', '~> 3.2.2'
 
 gem 'jquery-turbolinks'
 

@@ -24,3 +24,21 @@ end
     ReportType.create(report_type)
   end
 end
+
+if Rails.env == "development"
+  50.times do
+    FactoryGirl.create(:user, :with_reports, reports_count: rand(50))
+  end
+
+  30.times do
+    user = FactoryGirl.create(:user_with_team_admin)
+
+    team = user.team
+    team.division = Division.all.sample
+    team.save
+
+    rand(20).times do
+      FactoryGirl.create(:user, :with_reports, reports_count: rand(10), team: team)
+    end
+  end
+end

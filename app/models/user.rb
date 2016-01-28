@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   scope :ranked, -> {
                       includes(:outreach_reports => :report_type)
                       .sort { |a, b| b.total_score <=> a.total_score }
+                      .take(20)
                       # TODO: This in SQL
                       # .order('((sum(outreach_reports.phone_calls) * outreach_reports.report_types.phone_call_weight) +
                       #         (sum(outreach_reports.text_messages) * outreach_reports.report_types.text_message_weight)) DESC')
@@ -39,9 +40,26 @@ class User < ActiveRecord::Base
   scope :weekly_ranked, -> {
                             includes(:outreach_reports => :report_type)
                             .sort { |a, b| b.weekly_score <=> a.weekly_score }
+                            .take(20)
                            }
 
-                           
+
+  def self.top_ranked
+    redis = Redis.new
+    ranked_json = redis.get('user:ranked')
+    if ranked_json
+      ranked = JSON.parse(ranked_json)
+      return ranked.map {|r| User.deserialize(r) }
+    else
+      RankWorker.perform_async
+      return User.ranked.map {|u| User.find(u) }
+    end
+  end
+
+  def self.deserialize(json)
+    return User.find(json["id"])
+  end
+
   def to_s
     display_name.nil? ? email : display_name
   end
@@ -65,6 +83,14 @@ class User < ActiveRecord::Base
 
   def weekly_score
     self.outreach_reports.this_week.to_a.sum(&:score)
+  end
+
+  def serialize
+    {id: id, name: display_name, total_score: self.total_score, weekly_score: weekly_score}
+  end
+
+  def to_ranking
+    Ranking.new({weekly_score: weekly_score, total_score: self.total_score, display_name: self.to_s, id: self.id, record_type: 'User'})
   end
 
 

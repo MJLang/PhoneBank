@@ -25,6 +25,7 @@ class Team < ActiveRecord::Base
   scope :ranked, -> {
                       includes(:outreach_reports => :report_type)
                       .sort { |a, b| b.total_score <=> a.total_score }
+                      .take(20)
                       # TODO: This in SQL
                       # .order('((sum(outreach_reports.phone_calls) * outreach_reports.report_types.phone_call_weight) +
                       #         (sum(outreach_reports.text_messages) * outreach_reports.report_types.text_message_weight)) DESC')
@@ -33,6 +34,7 @@ class Team < ActiveRecord::Base
   scope :weekly_ranked, -> {
                             includes(:outreach_reports => :report_type)
                             .sort { |a, b| b.weekly_score <=> a.weekly_score }
+                            .take(20)
                            }
 
   def add_member(user)
@@ -66,8 +68,8 @@ class Team < ActiveRecord::Base
     true
   end
 
-  def serialize
-    {id: id, name: name, total_score: self.total_score, weekly_score: weekly_score}.to_json
+  def to_ranking
+    Ranking.new({weekly_score: weekly_score, total_score: self.total_score, display_name: self.name, id: self.id, record_type: 'Team'})
   end
 
 end
