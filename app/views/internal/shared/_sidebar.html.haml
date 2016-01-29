@@ -1,13 +1,14 @@
-%ul.side-nav
-  %li.heading
-    Team
-  - if current_user.team.nil?
-    %li
-      = link_to 'Join a Team!', teams_path
-    %li
-      = link_to 'Create a Team', new_team_path
-  - else
-    %li
-      = link_to 'Your Team', team_path(current_user.team)
-      - if current_user.is_admin?(current_user.team)
-        = link_to 'Edit your Team', edit_team_path(current_user.team)
+%div{role: 'sidebar'}
+  %ul.menu.vertical{role: 'sidebar'}
+    %li.menu-title
+      Team
+    - if current_user.team.nil?
+      %li
+        = link_to 'Join a Team!', teams_path
+      %li
+        = link_to 'Create a Team', new_team_path
+    - else
+      %li
+        = link_to 'Your Team', team_path(current_user.team)
+        - if current_user.is_admin?(current_user.team)
+          = link_to 'Edit your Team', edit_team_path(current_user.team)

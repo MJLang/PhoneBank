@@ -29,18 +29,18 @@ class User < ActiveRecord::Base
   before_save :generate_slug
 
   scope :ranked, -> {
-                      includes(:outreach_reports => :report_type)
+                      includes(outreach_reports: :report_type)
                       .sort { |a, b| b.total_score <=> a.total_score }
-                      .take(20)
+                      # .take(20)
                       # TODO: This in SQL
                       # .order('((sum(outreach_reports.phone_calls) * outreach_reports.report_types.phone_call_weight) +
                       #         (sum(outreach_reports.text_messages) * outreach_reports.report_types.text_message_weight)) DESC')
                     }
 
   scope :weekly_ranked, -> {
-                            includes(:outreach_reports => :report_type)
+                            includes(outreach_reports: :report_type)
                             .sort { |a, b| b.weekly_score <=> a.weekly_score }
-                            .take(20)
+                            # .take(20)
                            }
 
 
@@ -78,11 +78,11 @@ class User < ActiveRecord::Base
   end
 
   def total_score
-    outreach_reports.to_a.sum(&:score)
+    outreach_reports.includes(:report_type).to_a.sum(&:score)
   end
 
   def weekly_score
-    self.outreach_reports.this_week.to_a.sum(&:score)
+    outreach_reports.includes(:report_type).this_week.to_a.sum(&:score)
   end
 
   def serialize

@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "slideout.js": "~0.1.11"
+    "slideout.js": "~0.1.11",
+    "motion-ui": "~1.1.1"
   }
 }

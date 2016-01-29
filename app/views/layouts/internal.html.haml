@@ -8,13 +8,12 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = render partial: 'internal/shared/offcanvas'
     #mainPanel
-      = render partial: 'internal/shared/header'
-      = render partial: 'shared/flash'
-      .row#mainPanel
+      = render partial: 'shared/header'
+      .row.expanded.collapse#mainPanel
         .medium-3.large-2.columns
           .hide-for-small
             = render partial: 'internal/shared/sidebar'
         .medium-9.large-10.columns
+          = render partial: 'shared/flash'
           = yield

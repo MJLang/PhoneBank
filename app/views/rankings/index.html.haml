@@ -1,0 +1,19 @@
+.row
+  .small-12.medium-6.columns
+    %h2 User Rankings
+    %ul.tabs#userRankings{data: {tabs: ''}}
+      %li.tabs-title.is-active
+        = link_to 'Total', '#user-totalRankings'
+      %li.tabs-title
+        = link_to 'Weekly', '#user-weeklyRankings'
+    .tabs-content{data: {'tabs-content': 'userRankings'}}
+      %div.tabs-panel.is-active#user-totalRankings
+        %ul
+          - @user_rankings_total.each do |ranking|
+            %li
+              = link_to "#{ranking.display_name} - #{ranking.total_score}", user_path(ranking.id)
+      %div.tabs-panel#user-weeklyRankings
+        %ul
+          - @user_rankings_weekly.each do |ranking|
+            %li
+              = link_to "#{ranking.display_name} - #{ranking.weekly_score}", user_path(ranking.id)

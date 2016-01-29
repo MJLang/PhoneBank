@@ -1,0 +1,13 @@
+.menu.vertical {
+  .menu-title {
+    text-transform: uppercase;
+    padding: $menu-item-padding;
+    padding-bottom: 0;
+    color: $accent;
+  }
+}
+
+
+div[role='sidebar'] {
+  background-color: $light-gray;
+}

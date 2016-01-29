@@ -25,7 +25,8 @@ module Phonebankduel
     config.active_job.queue_adapter = :sidekiq
     config.autoload_paths += %W(#{config.root}/app/workers)
     config.autoload_paths += %W(#{config.root}/app/dtos)
-
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+    config.assets.precompile += %w( .svg .eot .woff .ttf)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower')
   end
 end

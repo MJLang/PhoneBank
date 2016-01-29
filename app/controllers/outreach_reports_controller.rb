@@ -16,6 +16,11 @@
 #
 
 class OutreachReportsController < ApplicationController
+  def new
+    @report = OutreachReport.new
+    render partial: 'new'
+  end
+
   def create
     user = User.find(params[:user_id])
     if user

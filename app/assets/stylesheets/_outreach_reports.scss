@@ -10,3 +10,16 @@
     display: inline-block;
   }
 }
+
+
+#reportModal {
+  width: 100% !important;
+
+  @include breakpoint(medium) {
+    width: 50% !important;
+  }
+
+  @include breakpoint(large) {
+    width: 30% !important;
+  }
+}

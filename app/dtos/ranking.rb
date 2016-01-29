@@ -17,6 +17,7 @@ class Ranking
     instance_variables.each {|var| self.class.send(:attr_accessor, var.to_s.delete('@'))}
   end
 
+
   def self.load(type)
     redis_key = CACHE_KEYS[type]
     raise ArgumentError, ":U#{type} is not a valid Key" unless redis_key

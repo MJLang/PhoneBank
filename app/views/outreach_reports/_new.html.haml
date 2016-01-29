@@ -1,8 +1,8 @@
-%div#reportModal.reveal-modal.small{data: {reveal: ''}}
+%div#reportModal.reveal.tiny{data: {reveal: ''}}
   %div.row
     %div.small-12.columns
       %h1 Report Card
-  = form_for [current_user, OutreachReport.new], html: {'data-abide' => ''} do |f|
+  = form_for [current_user, @report], html: {'data-abide' => ''} do |f|
     %div.row
       %div.small-12.columns
         = f.label :report_type_id, 'What type of report is this?'

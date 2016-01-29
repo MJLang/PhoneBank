@@ -1,26 +1,29 @@
-%nav.top-bar{data: {topbar: ''}, role: 'navigation'}
-  %ul.title-area
-    %li.name
-      %h1
-        = link_to 'Phonebank Duel', root_path
-    %li.toggle-topbar.menu-icon
-      = link_to '#' do
-        %span Menu
-  %section.top-bar-section
-    %ul.right
-      - if !current_user
-        %li
-          = link_to 'Register', register_path
-        %li
-          = link_to 'Login', login_path
-      - else
-        %li.cta
-          = link_to "Report In", '#', 'data-reveal-id' => 'reportModal'
-        %li.has-dropdown
-          = link_to current_user, '#'
-          %ul.dropdown
-            %li
-              = link_to 'Profile', internal_root_path
-            %li
-              = link_to 'Logout', logout_path, method: :delete
-        = render partial: 'outreach_reports/new'
+.top-bar
+  .top-bar-title
+    %span{data: {"responsive-toggle": "responsive-menu", "hide-for": "medium"}}
+      %span.menu-icon.dark{data: {"toggle": ""}}
+    %strong
+      = link_to "Phonebank Duel", root_path
+  #responsive-menu
+    .top-bar-right
+      - if current_user
+        #modal
+
+      %ul.menu.dropdown{data: {"dropdown-menu": ""}}
+        %li.menu-text
+          = link_to 'Rankings', rankings_path
+        - if current_user
+          %li.menu-text
+            = link_to 'File Report', '#', id: 'fileReport', data: {userId: current_user.id}
+          %li.menu-text
+            = link_to current_user, '#'
+            %ul.menu.vertical
+              %li
+                = link_to 'Profile', internal_root_path
+              %li
+                = link_to 'Logout', logout_path, method: :delete
+        - else
+          %li.menu-text
+            = link_to 'Register', register_path
+          %li.menu-text
+            = link_to 'Login', login_path

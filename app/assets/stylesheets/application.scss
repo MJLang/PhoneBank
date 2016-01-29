@@ -12,12 +12,15 @@
  *= require slideout.js/index
  *= require_self
 
- */
 
+
+ */
+@import "fonts";
 @import "foundation_and_overrides";
 @import "font-awesome";
 
 @import "global";
 @import "outreach_reports";
-@import "topbar";
+@import "layout/topbar";
+@import "layout/sidebar";
 @import "users";

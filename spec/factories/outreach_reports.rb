@@ -22,7 +22,7 @@ FactoryGirl.define do
     comments { FFaker::Lorem.paragraph }
     experience { FFaker::Lorem.paragraph }
     report_type_id { ReportType.all.collect(&:id).sample }
-    user
+    created_at { Time.at((Time.now.to_f - (Time.now - 20.days).to_f)*rand + (Time.now - 20.days).to_f) }
   end
 
 end
